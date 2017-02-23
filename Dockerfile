@@ -133,6 +133,14 @@ run mkdir -p /home/admin
 run cd /home/admin; git clone https://github.com/istarc/stm32.git # --depth 1
 run cd /home/admin/stm32; git submodule update --init # --depth 1
 
+# 2' install AWS CLI
+# install python-dev and pip
+RUN apt-get update && apt-get install -y --no-install-recommends python-setuptools python-dev build-essential
+RUN easy_install pip 
+
+#install aws cli
+RUN pip install awscli
+
 # 3. Add user admin with password "admin"
 run useradd -s /bin/bash -m -d /home/admin -p $(openssl passwd -1 admin)  admin
 run sed -Ei 's/adm:x:4:/admin:x:4:admin/' /etc/group
